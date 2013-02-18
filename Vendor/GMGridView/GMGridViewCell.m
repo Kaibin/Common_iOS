@@ -83,6 +83,7 @@
         self.deleteButton.alpha = 0;
         [self addSubview:deleteButton];
         [deleteButton addTarget:self action:@selector(actionDelete) forControlEvents:UIControlEventTouchUpInside];
+
     }
     return self;
 }
