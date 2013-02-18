@@ -111,7 +111,7 @@
             // Load image from bundle
             [imageView setImage:[UIImage imageNamed:imagePath]];
         }
-        
+        imageView.contentMode = UIViewContentModeScaleAspectFit;
         [scrollView addSubview:imageView];
         [imageView release];
     }
