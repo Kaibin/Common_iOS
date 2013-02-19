@@ -1,0 +1,14 @@
+
+
+"kAM" = "AM";
+"kPM" = "PM";
+
+"kLastUpdatedDate" = "Last Updated: %@";
+
+"kPullDownToRefresh" = "Pull down to refresh...";
+"kReleaseToRefresh" = "Release to refresh...";
+"kLoading" = "Loading...";
+
+"kPullUpToLoadMore" = "Pull up to load more...";
+"kReleaseToLoadMore" = "Release to load more...";
+"kMore" = "More";
