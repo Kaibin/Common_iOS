@@ -265,8 +265,11 @@
 
 - (void)viewDidLoad
 {
+    dataTableView = [[UITableView alloc] initWithFrame:self.view.frame];
 	dataTableView.delegate = self;
 	dataTableView.dataSource = self;
+    dataTableView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
+    [self.view addSubview:dataTableView];
 	
 	[self resetSelectRowAndSection];	
 	[super viewDidLoad];
