@@ -168,4 +168,9 @@
                         fontSize:(int)fontSize
                        imageName:(NSString*)imageName 
                           action:(SEL)action;
+
+- (void)showTabBar;
+- (void)hideTabBar;
+
+
 @end
