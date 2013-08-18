@@ -88,26 +88,31 @@
         HJManagedImageV *imageView = [[HJManagedImageV alloc] initWithFrame:frame];
         
         [imageView setImage:[UIImage imageNamed:defaultImage]];
-                
-        NSString *imagePath = [images objectAtIndex:i];
-        NSLog(@"imagePath = %@", imagePath);
-        if ([imagePath isAbsolutePath]) {
-            // Load image from file
-            UIImage *image = [[UIImage alloc] initWithContentsOfFile:imagePath];
-            [imageView setImage:image];
-            [image release];
-        }
-        else if([imagePath hasPrefix:@"http:"]){
-            // Load image from url
-            [imageView showLoadingWheel];
         
-            imageView.callbackOnSetImage = self;
-            imageView.url = [NSURL URLWithString:imagePath];
-            [GlobalGetImageCache() manage:imageView];
+        if ([[images objectAtIndex:i] isMemberOfClass:[UIImage class]]) {
+            [imageView setImage:[images objectAtIndex:i]];
         }
-        else{
-            // Load image from bundle
-            [imageView setImage:[UIImage imageNamed:imagePath]];
+        else {
+            NSString *imagePath = [images objectAtIndex:i];
+            PPDebug(@"imagePath = %@", imagePath);
+            if ([imagePath isAbsolutePath]) {
+                // Load image from file
+                UIImage *image = [[UIImage alloc] initWithContentsOfFile:imagePath];
+                [imageView setImage:image];
+                [image release];
+            }
+            else if([imagePath hasPrefix:@"http:"]){
+                // Load image from url
+                [imageView showLoadingWheel];
+                
+                imageView.callbackOnSetImage = self;
+                imageView.url = [NSURL URLWithString:imagePath];
+                [GlobalGetImageCache() manage:imageView];
+            }
+            else{
+                // Load image from bundle
+                [imageView setImage:[UIImage imageNamed:imagePath]];
+            }
         }
         imageView.contentMode = UIViewContentModeScaleAspectFit;
         [scrollView addSubview:imageView];
