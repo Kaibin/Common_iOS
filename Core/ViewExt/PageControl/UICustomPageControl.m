@@ -45,9 +45,9 @@
         NSArray *pageIndicatorViews = self.subviews;
         for(NSInteger i=0; i<[pageIndicatorViews count]; i++)
         {
-            UIImageView *pageIndicatorView = [pageIndicatorViews objectAtIndex:i];
-//            NSLog(@"x=%f, y=%f, width=%f, height=%f", pageIndicatorView.frame.origin.x, pageIndicatorView.frame.origin.y, pageIndicatorView.frame.size.width, pageIndicatorView.frame.size.height);
-            pageIndicatorView.image = self.currentPage == i ? _currentPageIndicatorImage : _nonCurrentPageIndicatorImage;
+            UIView *pageIndicatorView = [pageIndicatorViews objectAtIndex:i];
+            [pageIndicatorView setBackgroundColor:[UIColor colorWithPatternImage:(self.currentPage == i ? _currentPageIndicatorImage : _nonCurrentPageIndicatorImage)]];
+            
         }
         [self updateCurrentPageDisplay];
     }
