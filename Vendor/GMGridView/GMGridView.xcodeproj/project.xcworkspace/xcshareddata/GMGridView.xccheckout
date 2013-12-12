@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>3A2F486A-A376-4439-833C-D1E78CECCC03</string>
+	<key>IDESourceControlProjectName</key>
+	<string>GMGridView</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>9DD9A215-305D-4755-8EE4-DB7C445A1849</key>
+		<string>https://github.com/Kaibin/Common_iOS</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>Vendor/GMGridView/GMGridView.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>9DD9A215-305D-4755-8EE4-DB7C445A1849</key>
+		<string>../../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/Kaibin/Common_iOS</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>9DD9A215-305D-4755-8EE4-DB7C445A1849</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>9DD9A215-305D-4755-8EE4-DB7C445A1849</string>
+			<key>IDESourceControlWCCName</key>
+			<string>Common_iOS</string>
+		</dict>
+	</array>
+</dict>
+</plist>
