@@ -1,7 +1,7 @@
 //
 //  DMAdView.h
 //
-//  Copyright (c) 2012 Domob Ltd. All rights reserved.
+//  Copyright (c) 2013 Domob Ltd. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
@@ -16,6 +16,12 @@
 #define DOMOB_AD_SIZE_728x90    CGSizeMake(728, 90)
 #define DOMOB_AD_SIZE_600x500   CGSizeMake(600, 500)
 
+// For flexible banner
+#define FLEXIBLE_SIZE_PORTRAIT (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad? CGSizeMake(0, 90):CGSizeMake(0, 50))
+
+#define FLEXIBLE_SIZE_LANDSCAPE (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad? CGSizeMake(0, 90):CGSizeMake(0, 50))
+
+
 typedef enum
 {
     DMUserGenderFemale,
@@ -25,40 +31,38 @@ typedef enum
 @protocol DMAdViewDelegate;
 @interface DMAdView : UIView
 
-@property (nonatomic, assign) id<DMAdViewDelegate> delegate;
+@property (nonatomic, assign) id <DMAdViewDelegate> delegate;
 @property (nonatomic, assign) UIViewController *rootViewController;
 
-// 初始化普通的嵌入式广告视图
-- (id)initWithPublisherId:(NSString *)publisherId // Publishier ID
-                     size:(CGSize)adSize;         // 广告尺寸
+// init ad view
+- (id)initWithPublisherId:(NSString *)publisherId // Publisher ID
+              placementId:(NSString *)placementId // Placement ID
+                     size:(CGSize)adSize;         // size for ad view
 
-- (id)initWithPublisherId:(NSString *)publisherId // Publishier ID
-                     size:(CGSize)adSize          // 广告尺寸
-              autorefresh:(BOOL)autorefresh;      // 是否自动刷新
+- (id)initWithPublisherId:(NSString *)publisherId // Publisher ID
+              placementId:(NSString *)placementId // Placement ID
+                     size:(CGSize)adSize          // size for ad view
+              autorefresh:(BOOL)autorefresh;      // set auto refresh
 
-// 加载广告
+// load ad view
 - (void)loadAd;
 
-// 设置地理位置信息
+// The user's current location
 - (void)setLocation:(CLLocation *)location;
 
-// 设置邮编
+// The user's postcode
 - (void)setPostcode:(NSString *)postcode;
 
-// 设置关键字
+// The keyword of current activity
 - (void)setKeywords:(NSString *)keywords;
 
-// 设置用户年龄
+// The user's birthday
 - (void)setUserBirthday:(NSString *)userBirthday;
 
-// 设置用户性别
+// The user's gender
 - (void)setUserGender:(DMUserGenderType)userGender;
 
-// 加载指定URL的创意
-// format为"domob"或"mraid"
-- (void)loadCreativeWithCreativeFormat:(NSString *)format andCreativeURL:(NSString *)creativeURLStr;
-- (void)loadCreativeWithCreativeFormat:(NSString *)format creativeURL:(NSString *)creativeURLStr size:(CGSize)adsize;
-// 通知AdView，设备方向改变。如果你需要AdView自动调整自身属性来支持方向改变，你需要在App方向改变时调用该方法。
+// Notification AdView, device orientation changes. If you need AdView automatically adjust itself attributes to support the direction of the change, you need to call this method when the device change the direction in your app
 - (void)rotateToOrientation:(UIInterfaceOrientation)newOrientation;
 @end
 
@@ -66,17 +70,18 @@ typedef enum
 
 @protocol DMAdViewDelegate <NSObject>
 @optional
-// 成功加载广告后，回调该方法
+// Sent when an ad request success to loaded an ad
 - (void)dmAdViewSuccessToLoadAd:(DMAdView *)adView;
-// 加载广告失败后，回调该方法
+// Sent when an ad request fail to loaded an ad
 - (void)dmAdViewFailToLoadAd:(DMAdView *)adView withError:(NSError *)error;
-// 当广告视图被点击时，回调该方法
+// Sent when the ad view is clicked
 - (void)dmAdViewDidClicked:(DMAdView *)adView;
-// 当将要呈现出 Modal View 时，回调该方法。如打开内置浏览器。
+// Sent just before presenting the user a modal view
 - (void)dmWillPresentModalViewFromAd:(DMAdView *)adView;
-// 当呈现的 Modal View 被关闭后，回调该方法。如内置浏览器被关闭。
+// Sent just after dismissing the modal view
 - (void)dmDidDismissModalViewFromAd:(DMAdView *)adView;
-// 当因用户的操作（如点击下载类广告，需要跳转到Store），需要离开当前应用时，回调该方法
+// Sent just before the application will background or terminate because the user's action
+// (Such as the user clicked on an ad that will launch App Store).
 - (void)dmApplicationWillEnterBackgroundFromAd:(DMAdView *)adView;
 
 @end

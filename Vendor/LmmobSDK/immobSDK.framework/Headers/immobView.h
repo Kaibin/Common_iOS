@@ -1,10 +1,7 @@
 //
 //  immobView.h
-//  
 //
-//  Created by si ruoxian on 12-6-1.
-//  Copyright (c) 2012年 __MyCompanyName__. All rights reserved.
-//
+//  Version 2.7.0 BuildTime 131129
 
 #import <UIKit/UIKit.h>
 
@@ -13,7 +10,7 @@
 
 @required
 /**
- *email phone sms 所需要
+ *email phone sms 等所需要
  */
 - (UIViewController *)immobViewController;
 
@@ -22,11 +19,11 @@
 /**
  *用于实时回调通知当前的广告状态
  */
-- (void) immobViewDidReceiveAd;
+- (void) immobViewDidReceiveAd:(immobView*)immobView;
 
 - (void) immobView: (immobView*) immobView didFailReceiveimmobViewWithError: (NSInteger) errorCode;
 
-- (void) emailNotSetupForAd:(immobView *)adView;
+- (void) emailNotSetupForAd:(immobView *)immobView;
 
 /**
  *查询积分接口回调
@@ -40,7 +37,7 @@
 
 
 /**
- * Called when an ad is clicked and about to return to the application. </br>
+ * Called when an ad is clicked and about to return to the application. 
  * 当（全屏）广告被点击或者被关闭，将要返回返回主程序见面时被调用。
  *
  */
@@ -48,14 +45,14 @@
 
 
 /**
- * Called when an ad is clicked and going to start a new page that will leave the application 
+ * Called when an ad is clicked and going to start a new page that will leave the application
  * 当广告调用一个新的页面并且会导致离开目前运行程序时被调用。如：调用本地地图程序。
  *
  */
 - (void) onLeaveApplication:(immobView *)immobView;
 
 /**
- * Called when an page is created in front of the app. 
+ * Called when an page is created in front of the app.
  * 当广告页面被创建并且显示在覆盖在屏幕上面时调用本方法。
  */
 - (void) onPresentScreen:(immobView *)immobView;
@@ -96,6 +93,8 @@
  *此方法用于immobView的初始化
  */
 -(id) initWithAdUnitID:(NSString *)adUnitID;
+
+
 /**
  *此方法用于开始加载广告
  */
@@ -129,6 +128,12 @@
 -(void)immobViewDestroy;
 
 /**
+ *此方法用于获取由力美提供的Udid
+ */
+
+-(NSString *)getLimeiUDID;
+
+/**
  *此方法用于查询服务器上的积分
  *适用于单账户用户
  */
@@ -150,4 +155,5 @@
  *accountId 用户的账户名称
  */
 -(void)immobViewReduceScore:(NSInteger)score WithAdUnitID:(NSString *)adUnitId WithAccountID:(NSString *)accountId;
+
 @end

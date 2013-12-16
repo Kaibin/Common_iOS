@@ -1,103 +1,79 @@
 //
 //  DMInterstitialAdViewController.h
 //
-//  Copyright (c) 2012 Domob Ltd. All rights reserved.
+//  Copyright (c) 2013 Domob Ltd. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
 #import "DMAdView.h"
 
-/** 
- * SDK不再提供背景图片样式选择功能
- 
-typedef enum
-{
-    DMInterstitialBackgroundStyleBlack,
-    DMInterstitialBackgroundStyleWhite
-} DMInterstitialBackgroundStyle;
- 
-*/
-
 @protocol DMInterstitialAdControllerDelegate;
 @interface DMInterstitialAdController : UIViewController
 
-// 广告内容是否已经加载好
+// if it is ready
 @property (nonatomic, readonly) BOOL isReady;
-// 设置委托对象
-@property (nonatomic, assign) NSObject<DMInterstitialAdControllerDelegate> *delegate;
-// 是否在展现插屏广告时，隐藏状态栏。默认为YES
+// set delegate
+@property (nonatomic, assign) NSObject <DMInterstitialAdControllerDelegate> *delegate;
+// if set the statusBarHidden = YES ? default is YES
 @property (nonatomic, assign) BOOL shouldHiddenStatusBar;
 
-// 初始化一个插屏广告控制器，默认尺寸为全屏
+// init an Interstitial ad viewController。deafult size:
+// iPhone/iPod: 300x250
+// iPad:        600x500
 - (id)initWithPublisherId:(NSString *)publisherId                   // Domob PublisherId
-       rootViewController:(UIViewController *)rootViewController;   // 插屏广告使用的RootViewController
+              placementId:(NSString *)placementId                   // Domob PlacementId
+       rootViewController:(UIViewController *)rootViewController;   // set RootViewController
 
-// 初始化一个插屏广告控制器，使用开发者指定的尺寸
+//  init an Interstitial ad viewController
 - (id)initWithPublisherId:(NSString *)publisherId                   // Domob PublisherId
-       rootViewController:(UIViewController *)rootViewController    // 插屏广告使用的RootViewController
-                     size:(CGSize)adSize;                           // 插屏广告的广告尺寸
+              placementId:(NSString *)placementId                   // Domob PlacementId
+       rootViewController:(UIViewController *)rootViewController    // set RootViewController
+                     size:(CGSize)adSize;                           // size for interstitial ad view
 
-/** 
- * 这两个接口不再建议使用，如果想自定义插屏广告的背景图片或关闭按钮，请参考使用手册
- 
-// 初始化一个插屏广告控制器，使用开发者指定的由Domob提供的插屏背景风格
-- (id)initWithPublisherId:(NSString *)publisherId                   // Domob PublisherId
-       rootViewController:(UIViewController *)rootViewController    // 插屏广告使用的RootViewController
-                     size:(CGSize)adSize                            // 插屏广告的广告尺寸
-          backgroundStyle:(DMInterstitialBackgroundStyle)style;     // 插屏广告使用的背景图片样式，目前提供两种样式的背景图片
-
-// 初始化一个插屏广告控制器，使用开发者指定的尺寸和插屏背景图片
-- (id)initWithPublisherId:(NSString *)publisherId                   // Domob PublisherId
-       rootViewController:(UIViewController *)rootViewController    // 插屏广告使用的RootViewController
-                     size:(CGSize)adSize                            // 插屏广告的广告尺寸
-          backgroundImage:(UIImage *)image;                         // 插屏广告使用的自定义背景图片
- 
-*/
-
-// 加载广告
+// load ad
 - (void)loadAd;
 
-// 呈现广告
+// present ad
 - (void)present;
 
-// 设置地理位置信息
+// The user's current location
 - (void)setLocation:(CLLocation *)location;
 
-// 设置邮编
+// The user's postcode
 - (void)setPostcode:(NSString *)postcode;
 
-// 设置关键字
+// The keyword of current activity
 - (void)setKeywords:(NSString *)keywords;
 
-// 设置用户年龄
+// The user's birthday
 - (void)setUserBirthday:(NSString *)userBirthday;
 
-// 设置用户性别
+// The user's gender
 - (void)setUserGender:(DMUserGenderType)userGender;
 
-// 加载指定URL的创意
-// format为"domob"或"mraid"
-- (void)loadCreativeWithCreativeFormat:(NSString *)format creativeURL:(NSString *)creativeURLStr size:(CGSize)adsize;
 @end
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
 @protocol DMInterstitialAdControllerDelegate
 @optional
-// 当插屏广告被成功加载后，回调该方法
+// Sent when an ad request success to loaded an ad
 - (void)dmInterstitialSuccessToLoadAd:(DMInterstitialAdController *)dmInterstitial;
-// 当插屏广告加载失败后，回调该方法
+// Sent when an ad request fail to loaded an ad
 - (void)dmInterstitialFailToLoadAd:(DMInterstitialAdController *)dmInterstitial withError:(NSError *)err;
+// Sent when the ad is clicked
+- (void)dmInterstitialDidClicked:(DMInterstitialAdController *)dmInterstitial;
 
-// 当插屏广告要被呈现出来前，回调该方法
+// Sent just before presenting an interstitial
 - (void)dmInterstitialWillPresentScreen:(DMInterstitialAdController *)dmInterstitial;
-// 当插屏广告被关闭后，回调该方法
+// Sent just after dismissing an interstitial
 - (void)dmInterstitialDidDismissScreen:(DMInterstitialAdController *)dmInterstitial;
 
-// 当将要呈现出 Modal View 时，回调该方法。如打开内置浏览器。
+// Sent just before presenting the user a modal view
 - (void)dmInterstitialWillPresentModalView:(DMInterstitialAdController *)dmInterstitial;
-// 当呈现的 Modal View 被关闭后，回调该方法。如内置浏览器被关闭。
+// Sent just after dismissing the modal view.
 - (void)dmInterstitialDidDismissModalView:(DMInterstitialAdController *)dmInterstitial;
-// 当因用户的操作（如点击下载类广告，需要跳转到Store），需要离开当前应用时，回调该方法
+// Sent just before the application will background or terminate because the user's action
+// (Such as the user clicked on an ad that will launch App Store).
 - (void)dmInterstitialApplicationWillEnterBackground:(DMInterstitialAdController *)dmInterstitial;
 @end
